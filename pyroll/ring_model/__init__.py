@@ -5,7 +5,7 @@ VERSION = "2.0.0b"
 
 from pyroll.core import Profile, Hook
 
-RING_COUNT = 5
+RING_COUNT = 11
 
 
 @Profile.extension_class
@@ -30,12 +30,16 @@ def equivalent_radius(self: RingProfile):
 
 @RingProfile.rings
 def rings(self: RingProfile):
-    return (self.ring_boundaries[1:] + self.ring_boundaries[:-1]) / 2
+    dr = self.equivalent_radius / (RING_COUNT - 0.5)
+    return np.arange(0, self.equivalent_radius, dr)
 
 
 @RingProfile.ring_boundaries
 def ring_boundaries(self: RingProfile):
-    return np.linspace(0, self.equivalent_radius, RING_COUNT + 1)
+    a = np.zeros(len(self.rings) + 1)
+    a[1:-1] = (self.rings[1:] + self.rings[:-1]) / 2
+    a[-1] = self.equivalent_radius
+    return a
 
 
 @RingProfile.ring_contours
@@ -47,9 +51,13 @@ def ring_contours(self: RingProfile):
     radii = np.sqrt(x ** 2 + y ** 2)
     for i in range(1, len(a)):
         scaled_radii = radii * self.ring_boundaries[i] / self.equivalent_radius
-        a[i] = shapely.LinearRing(np.column_stack([
-            scaled_radii * np.cos(angles),
-            scaled_radii * np.sin(angles)
-        ]))
+        a[i] = shapely.LinearRing(
+            np.column_stack(
+                [
+                    scaled_radii * np.cos(angles),
+                    scaled_radii * np.sin(angles)
+                ]
+            )
+        )
 
     return a

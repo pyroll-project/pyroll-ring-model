@@ -1,7 +1,7 @@
 import numpy as np
 import shapely
 
-VERSION = "2.0.0b"
+VERSION = "2.0.0b1"
 
 from pyroll.core import Profile, Hook
 

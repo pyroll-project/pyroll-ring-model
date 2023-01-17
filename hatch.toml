@@ -3,9 +3,6 @@ packages = [
     "pyroll" # place your package in the pyroll namespace
 ]
 
-[metadata]
-allow-direct-references = true
-
 [version]
 path = "pyroll/ring_model.py"
 
@@ -13,8 +10,7 @@ path = "pyroll/ring_model.py"
 path = ".venv"
 dependencies = [
     "pytest ~= 7.0",
-#    "pyroll-report ~= 2.0.0a",
-    "pyroll-report @ git+https://github.com/pyroll-project/pyroll-report@disk_elements",
+    "pyroll-report ~= 2.0.0b",
 ]
 
 [envs.docs]

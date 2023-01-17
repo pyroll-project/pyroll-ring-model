@@ -14,13 +14,16 @@ class RingProfile(Profile):
     """Radius of an equivalent round profile."""
 
     rings = Hook[np.ndarray]()
-    """Array of radius coordinates core to surface."""
+    """Array of radius coordinates of the ring centers from core to surface."""
 
     ring_boundaries = Hook[np.ndarray]()
-    """Array of radius coordinates core to surface."""
+    """Array of radius coordinates of the ring boundaries from core to surface."""
 
     ring_contours = Hook[np.ndarray]()
-    """Array of radius coordinates core to surface."""
+    """Array of the contour lines of the ring boundaries (LineString geometry objects)."""
+
+    ring_sections = Hook[np.ndarray]()
+    """Array of the ring section areas (Polygon geometry objects)."""
 
 
 @RingProfile.equivalent_radius
@@ -58,6 +61,22 @@ def ring_contours(self: RingProfile):
                     scaled_radii * np.sin(angles)
                 ]
             )
+        )
+
+    return a
+
+
+@RingProfile.ring_sections
+def ring_sections(self: RingProfile):
+    a = np.zeros(len(self.rings), dtype=object)
+    a[0] = shapely.Polygon(
+        shell=self.ring_contours[1],
+    )
+
+    for i in range(1, len(a)):
+        a[i] = shapely.Polygon(
+            shell=self.ring_contours[i + 1],
+            holes=[self.ring_contours[i]]
         )
 
     return a

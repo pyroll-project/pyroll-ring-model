@@ -58,9 +58,20 @@
 
     The radii of the ring boundary lines are as in \autoref{eq:ring_boundaries} with the index of the boundary $j \in [0, n]$.
 
-    \begin{equation}
-        R_j = \left(j - \frac{1}{2}\right) \Delta r
+    \begin{subequations}
+        \begin{align}
+            R_j &= \left(j - \frac{1}{2}\right) \Delta r\\
+            R_0 &= 0
+        \end{align}
         \label{eq:ring_boundaries}
+    \end{subequations}
+
+    The rings are mapped back to the actual cross-section by scaling the polar coordinates of the contour with the ring radii as in \autoref{eq:map_back}, with the polar coordinates of the profile contour line $(\theta, \varrho)$. $r_{\mathrm{P}i}(\theta)$ are the polar coordinates of the ring center lines on the actual profile cross-section like illustrated on the left of \autoref{fig:ring_model}.
+    The boundaries' coordinates are calculated accordingly.
+
+    \begin{equation}
+        r_{\mathrm{P}i}(\theta) = \varrho(\theta) * \frac{r_i}{r_{\mathrm{e}}}
+        \label{eq:map_back}
     \end{equation}
 
 

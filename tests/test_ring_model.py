@@ -15,6 +15,10 @@ def test_equivalent_radius():
 
     assert np.isclose(p.equivalent_radius, 9, rtol=1e-3)
 
+    p: RingProfile | Profile = Profile.diamond(width=10, height=9, corner_radius=1)
+
+    assert np.isclose(p.equivalent_radius ** 2 * np.pi, p.cross_section.area, rtol=1e-3)
+
 
 def test_rings():
     p: RingProfile | Profile = Profile.round(radius=7)

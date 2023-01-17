@@ -7,7 +7,7 @@ packages = [
 allow-direct-references = true
 
 [version]
-path = "pyroll/ring_model/__init__.py"
+path = "pyroll/ring_model.py"
 
 [envs.default]
 path = ".venv"
@@ -20,6 +20,7 @@ dependencies = [
 [envs.docs]
 path = ""
 dependencies = [
+    "matplotlib",
     "pygments ~= 2.0",
     "pytask ~= 0.2.0",
     "pytask_latex ~= 0.2.0",

@@ -69,10 +69,16 @@
     The rings are mapped back to the actual cross-section by scaling the polar coordinates of the contour with the ring radii as in \autoref{eq:map_back}, with the polar coordinates of the profile contour line $(\theta, \varrho)$. $r_{\mathrm{P}i}(\theta)$ are the polar coordinates of the ring center lines on the actual profile cross-section like illustrated on the left of \autoref{fig:ring_model}.
     The boundaries' coordinates are calculated accordingly.
 
-    \begin{equation}
-        r_{\mathrm{P}i}(\theta) = \varrho(\theta) * \frac{r_i}{r_{\mathrm{e}}}
+    \begin{subequations}
+        \begin{gather}
+            r_{\mathrm{P}i}(\theta) = \varrho(\theta) \frac{r_i}{r_{\mathrm{e}}}\\
+            R_{\mathrm{P}j}(\theta) = \varrho(\theta) \frac{R_j}{r_{\mathrm{e}}}
+        \end{gather}
         \label{eq:map_back}
-    \end{equation}
+    \end{subequations}
+
+    The length of the mapped boundary lines is defined as the interface length $I_j$.
+    The area between the mapped boundaries is the ring cross-section $A_i$.
 
 
     \section{Usage instructions}\label{sec:usage-instructions}
@@ -91,7 +97,9 @@
 
     For geometric calculations, also two hooks returning shapely geometry objects are provided.
     \py/Profile.ring_contours/ returns an array of \py/LineStrings/ representing the mapping of the ring boundaries on the real profile cross-section.
+    The interface lengths $I_j$ can be obtained by using \py/Profile.ring_contours[j].length/.
     \py/Profile.ring_sections/ returns, however, an array of \py/Polygon/ objects representing the areas of the rings lying between those boundaries.
+    The ring cross-sections $A_i$ can be obtained by using \py/Profile.ring_sections[i].area/.
 
     For implementing model equations, define a new hook \py/Profile.ring_*s/ which shall return an array of the same length as \py/Profile.rings/.
     The \texttt{*} shall be replaced with the property name you want to represent, pay respect to the plural form.

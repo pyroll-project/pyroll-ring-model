@@ -3,9 +3,13 @@ import shapely
 
 VERSION = "2.0.0"
 
-from pyroll.core import Profile, Hook
+from pyroll.core import Profile, Hook, config
 
-RING_COUNT = 11
+
+@config("PYROLL_RING_MODEL")
+class Config:
+    RING_COUNT = 11
+    """Count of rings used to discretize the profile."""
 
 
 @Profile.extension_class
@@ -33,7 +37,7 @@ def equivalent_radius(self: RingProfile):
 
 @RingProfile.rings
 def rings(self: RingProfile):
-    dr = self.equivalent_radius / (RING_COUNT - 0.5)
+    dr = self.equivalent_radius / (Config.RING_COUNT - 0.5)
     return np.arange(0, self.equivalent_radius, dr)
 
 

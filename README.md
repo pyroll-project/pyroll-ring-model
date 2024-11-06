@@ -1,4 +1,4 @@
-# PyRoll Ring Model Thermal
+# PyRolL Ring Model
 
 Plugin for PyRoll providing a discretization approach by dividing the profile cross-section in homogeneous rings.
 
